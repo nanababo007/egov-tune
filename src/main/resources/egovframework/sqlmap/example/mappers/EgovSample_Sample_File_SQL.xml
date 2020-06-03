@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.sample.service.impl.SampleFileMapper">
+	
+	<resultMap id="file" type="SampleFileVO">
+		<result property="fileSeq" column="file_seq"/>
+		<result property="sampleId" column="sample_id"/>
+		<result property="orgFileName" column="org_file_name"/>
+		<result property="saveFileName" column="save_file_name"/>
+		<result property="fileKind" column="file_kind"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="fileOrd" column="file_ord"/>
+		<result property="fileExt" column="file_ext"/>
+		<result property="fileDesc" column="file_desc"/>
+	</resultMap>
+	
+	<insert id="insertSampleFile" parameterType="SampleFileVO">
+			/* SampleFileVO.insertSampleFile */
+			<selectKey resultType="string" keyProperty="fileSeq" order="BEFORE">
+				SELECT MAX(FILE_SEQ)+1 FROM FILE_INFO
+			</selectKey>
+			INSERT INTO FILE_INFO (
+				  	FILE_SEQ
+				  , SAMPLE_ID
+				  , ORG_FILE_NAME
+				  , SAVE_FILE_NAME
+				  , FILE_KIND
+				  , FILE_SIZE
+				  , FILE_EXT
+				  , FILE_ORD
+				  , REG_DATE
+				  , MOD_DATE
+			) VALUES (
+				    #{fileSeq}
+				  , #{sampleId}
+				  , #{orgFileName}
+				  , #{saveFileName}
+				  , #{fileKind}
+				  , #{fileSize}
+				  , #{fileExt}
+				  , #{fileOrd}
+				  , current_timestamp
+				  , null
+			)
+	</insert>
+	
+	<update id="updateSampleFile">
+			/* SampleFileVO.updateSampleFile */
+			UPDATE FILE_INFO SET
+				  ORG_FILE_NAME=#{orgFileName}
+				, SAVE_FILE_NAME=#{saveFileName}
+				, FILE_KIND=#{fileKind}
+				, FILE_EXT=#{fileExt}
+				, FILE_SIZE=#{fileSize}
+				, MOD_DATE=current_timestamp
+			WHERE FILE_SEQ=#{fileSeq}
+	</update>
+	
+	<delete id="deleteSample">
+			/* SampleFileVO.deleteSample */
+			DELETE FROM FILE_INFO
+			WHERE ID=#{id}
+	</delete>
+	
+	<select id="selectSample" resultMap="file">
+			/* SampleFileVO.selectSample */
+			SELECT
+				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
+				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
+			FROM FILE_INFO
+			WHERE ID=#{id}
+	</select>
+
+	<select id="selectSampleList" parameterType="searchVO" resultMap="file">
+			/* SampleFileVO.selectSampleList */
+			SELECT
+				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
+				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
+			FROM FILE_INFO
+			WHERE 1=1
+			<include refid="selectSampleListCondition" />
+			ORDER BY ID ASC
+			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
+	</select>
+	
+	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">
+			/* SampleFileVO.selectSampleListTotCnt */
+			SELECT COUNT(*) totcnt
+			FROM FILE_INFO
+			WHERE 1=1
+			<include refid="selectSampleListCondition" />
+	</select>
+	
+	<sql id="selectSampleListCondition">
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND ORG_FILE_NAME LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	FILE_DESC LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+	</sql>
+	
+</mapper>
