@@ -57,7 +57,8 @@
 
 			SELECT
 				ID, NAME as NAME, DESCRIPTION, USE_YN, REG_USER
-			FROM SAMPLE
+				, (SELECT COUNT(*) FROM FILE_INFO WHERE SAMPLE_ID = A.ID) AS FILE_CNT
+			FROM SAMPLE A
 			WHERE 1=1
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>

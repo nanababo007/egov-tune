@@ -17,15 +17,10 @@ package egovframework.example.sample.web;
 
 import java.util.List;
 
-import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
-import egovframework.example.sample.service.SampleVO;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
-import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -37,6 +32,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springmodules.validation.commons.DefaultBeanValidator;
+
+import com.sample.app.api.service.SampleFileService;
+import com.sample.app.api.vo.SampleFileVO;
+
+import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleVO;
+import egovframework.rte.fdl.property.EgovPropertyService;
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 /**
  * @Class Name : EgovSampleController.java
@@ -58,9 +62,14 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 @Controller
 public class EgovSampleController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleController.class);
+	
 	/** EgovSampleService */
 	@Resource(name = "sampleService")
 	private EgovSampleService sampleService;
+	
+	@Resource(name = "sampleFileService")
+	private SampleFileService sampleFileService;
 
 	/** EgovPropertyService */
 	@Resource(name = "propertiesService")
@@ -172,8 +181,18 @@ public class EgovSampleController {
 	public String updateSampleView(@RequestParam("selectedId") String id, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model) throws Exception {
 		SampleVO sampleVO = new SampleVO();
 		sampleVO.setId(id);
-		// 변수명은 CoC 에 따라 sampleVO
-		model.addAttribute(selectSample(sampleVO, searchVO));
+		SampleVO sampleInfo = selectSample(sampleVO, searchVO);
+		
+		SampleFileVO sampleFileVO = new SampleFileVO();
+		sampleFileVO.setSampleId(id);
+		LOGGER.debug("sampleFileVO ::: "+sampleFileVO);
+		List<SampleFileVO> sampleFileList = sampleFileService.selectSampleFileList(sampleFileVO);
+		
+		LOGGER.debug("sampleFileList ::: "+sampleFileList);
+		
+		model.addAttribute("sampleVO", sampleInfo);
+		model.addAttribute("sampleFileList", sampleFileList);
+		
 		return "sample/egovSampleRegister";
 	}
 

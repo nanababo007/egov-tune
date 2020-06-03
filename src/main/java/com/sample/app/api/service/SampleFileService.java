@@ -1,38 +1,21 @@
-/*
- * Copyright 2011 MOPAS(Ministry of Public Administration and Security).
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package com.sample.app.api.mapper;
+package com.sample.app.api.service;
 
 import java.util.List;
 
 import com.sample.app.api.vo.SampleFileVO;
 
 import egovframework.example.sample.service.SampleVO;
-import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
-@Mapper("sampleFileMapper")
-public interface SampleFileMapper {
-	
+public interface SampleFileService {
+
 	/**
-	 * 글을 등록한다.
+	 * 파일을 등록한다.
 	 * @param vo - 등록할 정보가 담긴 SampleVO
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	void insertSampleFile(SampleFileVO vo) throws Exception;
-	
+	int insertSampleFile(SampleFileVO vo) throws Exception;
+
 	/**
 	 * 글을 수정한다.
 	 * @param vo - 수정할 정보가 담긴 SampleVO

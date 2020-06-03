@@ -79,7 +79,7 @@ public class SampleFileDAO {
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	public List<?> selectSampleFileList(SampleFileVO vo) throws Exception {
+	public List<SampleFileVO> selectSampleFileList(SampleFileVO vo) throws Exception {
 		return sqlSession.selectList(namespace + "selectSampleFileList", vo);
 	}
 

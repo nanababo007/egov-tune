@@ -10,7 +10,7 @@ public class SampleFileVO extends SampleDefaultVO {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String fileSeq;
+	private int fileSeq;
 	private String sampleId;
 	private String orgFileName;
 	private String saveFileName;
@@ -34,14 +34,14 @@ public class SampleFileVO extends SampleDefaultVO {
 		}
 	}
 	
-	public String getFileSeq() {
+	public int getFileSeq() {
 		return fileSeq;
 	}
-	
-	public void setFileSeq(String fileSeq) {
+
+	public void setFileSeq(int fileSeq) {
 		this.fileSeq = fileSeq;
 	}
-	
+
 	public String getSampleId() {
 		return sampleId;
 	}

@@ -68,18 +68,21 @@
 				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
 				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
 			FROM FILE_INFO
-			WHERE ID=#{id}
+			WHERE FILE_SEQ=#{fileSeq}
 	</select>
 	
 	<select id="selectSampleFileList" parameterType="SampleFileVO" resultMap="SampleFile">
 			/* SampleFileVO.selectSampleFileList */
-			SELECT
-				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
-				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
-			FROM FILE_INFO
-			WHERE 1=1
-			<include refid="selectSampleFileListCondition" />
-			ORDER BY ID ASC
+			SELECT	A.*
+			FROM (
+				SELECT
+					FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
+					FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
+				FROM FILE_INFO
+				WHERE 1=1
+				<include refid="selectSampleFileListCondition" />
+			) A
+			ORDER BY A.FILE_ORD ASC
 			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
@@ -92,6 +95,7 @@
 	</select>
 	
 	<sql id="selectSampleFileListCondition">
+			AND SAMPLE_ID = #{sampleId}
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">
