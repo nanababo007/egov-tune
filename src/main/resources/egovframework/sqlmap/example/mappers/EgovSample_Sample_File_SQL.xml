@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="egovframework.example.sample.service.impl.SampleFileMapper">
+<mapper namespace="com.sample.app.api.mapper.SampleFileMapper">
 	
-	<resultMap id="file" type="SampleFileVO">
+	<resultMap id="SampleFile" type="SampleFileVO">
 		<result property="fileSeq" column="file_seq"/>
 		<result property="sampleId" column="sample_id"/>
 		<result property="orgFileName" column="org_file_name"/>
@@ -44,7 +44,7 @@
 			)
 	</insert>
 	
-	<update id="updateSampleFile">
+	<update id="updateSampleFile" parameterType="SampleFileVO">
 			/* SampleFileVO.updateSampleFile */
 			UPDATE FILE_INFO SET
 				  ORG_FILE_NAME=#{orgFileName}
@@ -56,42 +56,42 @@
 			WHERE FILE_SEQ=#{fileSeq}
 	</update>
 	
-	<delete id="deleteSample">
-			/* SampleFileVO.deleteSample */
+	<delete id="deleteSampleFile" parameterType="SampleFileVO">
+			/* SampleFileVO.deleteSampleFile */
 			DELETE FROM FILE_INFO
-			WHERE ID=#{id}
+			WHERE FILE_SEQ=#{fileSeq}
 	</delete>
 	
-	<select id="selectSample" resultMap="file">
-			/* SampleFileVO.selectSample */
+	<select id="selectSampleFile" resultMap="SampleFile" parameterType="SampleFileVO">
+			/* SampleFileVO.selectSampleFile */
 			SELECT
 				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
 				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
 			FROM FILE_INFO
 			WHERE ID=#{id}
 	</select>
-
-	<select id="selectSampleList" parameterType="searchVO" resultMap="file">
-			/* SampleFileVO.selectSampleList */
+	
+	<select id="selectSampleFileList" parameterType="SampleFileVO" resultMap="SampleFile">
+			/* SampleFileVO.selectSampleFileList */
 			SELECT
 				FILE_SEQ, SAMPLE_ID, ORG_FILE_NAME, SAVE_FILE_NAME, 
 				FILE_KIND, FILE_SIZE, FILE_EXT, FILE_ORD, REG_DATE, MOD_DATE
 			FROM FILE_INFO
 			WHERE 1=1
-			<include refid="selectSampleListCondition" />
+			<include refid="selectSampleFileListCondition" />
 			ORDER BY ID ASC
 			LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
-	<select id="selectSampleListTotCnt" parameterType="searchVO" resultType="int">
-			/* SampleFileVO.selectSampleListTotCnt */
+	<select id="selectSampleFileListTotCnt" parameterType="SampleFileVO" resultType="int">
+			/* SampleFileVO.selectSampleFileListTotCnt */
 			SELECT COUNT(*) totcnt
 			FROM FILE_INFO
 			WHERE 1=1
-			<include refid="selectSampleListCondition" />
+			<include refid="selectSampleFileListCondition" />
 	</select>
 	
-	<sql id="selectSampleListCondition">
+	<sql id="selectSampleFileListCondition">
 			<if test="searchKeyword != null and searchKeyword != ''">
 		        <choose>
 		            <when test="searchCondition == 0">

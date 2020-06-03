@@ -4,7 +4,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sample.app.api.util.FileUtil;
 
-public class SampleFileVO {
+import egovframework.example.sample.service.SampleDefaultVO;
+
+public class SampleFileVO extends SampleDefaultVO {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String fileSeq;
 	private String sampleId;
 	private String orgFileName;
@@ -32,42 +37,55 @@ public class SampleFileVO {
 	public String getFileSeq() {
 		return fileSeq;
 	}
+	
 	public void setFileSeq(String fileSeq) {
 		this.fileSeq = fileSeq;
 	}
+	
 	public String getSampleId() {
 		return sampleId;
 	}
+	
 	public void setSampleId(String sampleId) {
 		this.sampleId = sampleId;
 	}
+	
 	public String getOrgFileName() {
 		return orgFileName;
 	}
+	
 	public void setOrgFileName(String orgFileName) {
 		this.orgFileName = orgFileName;
 	}
+	
 	public String getSaveFileName() {
 		return saveFileName;
 	}
+	
 	public void setSaveFileName(String saveFileName) {
 		this.saveFileName = saveFileName;
 	}
+	
 	public String getFileKind() {
 		return fileKind;
 	}
+	
 	public void setFileKind(String fileKind) {
 		this.fileKind = fileKind;
 	}
+	
 	public String getFileSize() {
 		return fileSize;
 	}
+	
 	public void setFileSize(String fileSize) {
 		this.fileSize = fileSize;
 	}
+	
 	public String getFileOrd() {
 		return fileOrd;
 	}
+	
 	public void setFileOrd(String fileOrd) {
 		this.fileOrd = fileOrd;
 	}
@@ -94,5 +112,5 @@ public class SampleFileVO {
 				+ ", saveFileName=" + saveFileName + ", fileKind=" + fileKind + ", fileSize=" + fileSize + ", fileOrd="
 				+ fileOrd + ", fileExt=" + fileExt + ", fileDesc=" + fileDesc + "]";
 	}
-	
+
 }
