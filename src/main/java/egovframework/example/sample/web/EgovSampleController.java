@@ -33,9 +33,9 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
-import com.sample.app.api.service.SampleFileService;
-import com.sample.app.api.util.FileUtil;
-import com.sample.app.api.vo.SampleFileVO;
+import com.sample.app.service.SampleFileService;
+import com.sample.app.util.FileUtil;
+import com.sample.app.vo.SampleFileVO;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleDefaultVO;
@@ -153,11 +153,6 @@ public class EgovSampleController {
 
 		sampleService.insertSample(sampleVO);
 
-		if(!FileUtil.isMultipartFileNull(sampleVO.getFile1())) {
-			System.out.println("sampleVO.getFile1() ::: "+sampleVO.getFile1());
-			System.out.println("sampleVO.getFile1().getOriginalFilename() ::: "+sampleVO.getFile1().getOriginalFilename());
-		}
-
 		FileUtil.FileSaveInfo saveInfo = FileUtil.saveMultipartFile(propertiesService, sampleVO.getFile1(), "sample", "");
 		LOGGER.debug("saveInfo ::: "+saveInfo);
 		
@@ -165,10 +160,9 @@ public class EgovSampleController {
 			MultipartFile[] files = sampleVO.getFiles();
 			int i=0;
 			for (MultipartFile mfile : files) {
-				if(!FileUtil.isMultipartFileNull(mfile)) {
-					System.out.println("files("+i+") ::: "+mfile);
-					System.out.println("files("+i+") ::: "+mfile.getOriginalFilename());
-				}
+				FileUtil.FileSaveInfo saveInfo2 = FileUtil.saveMultipartFile(propertiesService, mfile, "sample", "");
+				LOGGER.debug("saveInfo2("+i+") ::: "+saveInfo2);
+				
 				i++;
 			}
 		}

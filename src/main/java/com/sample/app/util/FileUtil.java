@@ -1,4 +1,4 @@
-package com.sample.app.api.util;
+package com.sample.app.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -220,7 +220,7 @@ public class FileUtil {
 		if(propertiesService!=null && !isMultipartFileNull(mfile) && StringUtil.isNotEmpty(subFolder)) {
 			filePrefix = filePrefix==null ? "" : filePrefix.trim();
 			
-			String uploadFolder = PropertyServiceUtil.getUploadPath(propertiesService);
+			String uploadFolder = PropertyServiceHelper.getUploadPath(propertiesService);
 			if(isFolderExists(uploadFolder)) {
 				String uploadSubFolder =  combinePath(uploadFolder,subFolder);
 				makeFolder(uploadSubFolder);

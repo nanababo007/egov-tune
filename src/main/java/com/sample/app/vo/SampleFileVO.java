@@ -1,8 +1,8 @@
-package com.sample.app.api.vo;
+package com.sample.app.vo;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.sample.app.api.util.FileUtil;
+import com.sample.app.util.FileUtil;
 
 import egovframework.example.sample.service.SampleDefaultVO;
 

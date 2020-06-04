@@ -1,11 +1,11 @@
-package com.sample.app.api.util;
+package com.sample.app.util;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 
 /**
  * context-properties.xml 파일의 속성값들을 키값을 알 필요없이 자동완성으로 가져다 쓰는 편의 클래스
  */
-public class PropertyServiceUtil {
+public class PropertyServiceHelper {
 
 	/**
 	 * 업로드 기본 경로 가져오는 함수

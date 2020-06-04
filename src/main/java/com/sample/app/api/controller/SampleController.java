@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/sample")
 public class SampleController {
-	
+
 	@GetMapping("/list")
-    public List<Map<String,Object>> getList() {
-    	List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+    public ResponseEntity<Map<String,Object>> getList() {
+		Map<String,Object> data = new HashMap<String,Object>();
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         
     	Map<String,Object> row1 = new HashMap<String,Object>();
     	row1.put("row1_col1", "row1_value1");
@@ -28,10 +31,9 @@ public class SampleController {
     	list.add(row1);
     	list.add(row2);
     	
-    	System.out.println("api sample list :: ");
-    	System.out.println(list);
+    	data.put("list", list);
     	
-    	return list;
+    	return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 	
 }

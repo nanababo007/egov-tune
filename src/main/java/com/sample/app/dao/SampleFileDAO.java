@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sample.app.api.dao;
+package com.sample.app.dao;
 
 import java.util.List;
 
@@ -21,9 +21,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.sample.app.api.vo.SampleFileVO;
-
-import egovframework.example.sample.service.SampleVO;
+import com.sample.app.vo.SampleFileVO;
 
 @Repository("sampleFileDAO")
 public class SampleFileDAO {
@@ -69,8 +67,8 @@ public class SampleFileDAO {
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	public SampleVO selectSampleFile(SampleFileVO vo) throws Exception {
-		return (SampleVO) sqlSession.selectOne(namespace + "selectSampleFile", vo);
+	public SampleFileVO selectSampleFile(SampleFileVO vo) throws Exception {
+		return (SampleFileVO) sqlSession.selectOne(namespace + "selectSampleFile", vo);
 	}
 
 	/**
