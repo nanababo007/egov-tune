@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springmodules.validation.commons.DefaultBeanValidator;
 
 import com.sample.app.api.service.SampleFileService;
+import com.sample.app.api.util.FileUtil;
 import com.sample.app.api.vo.SampleFileVO;
 
 import egovframework.example.sample.service.EgovSampleService;
@@ -92,6 +93,8 @@ public class EgovSampleController {
 		/** EgovPropertyService.sample */
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		searchVO.setPageSize(propertiesService.getInt("pageSize"));
+		
+		LOGGER.debug("properties uploadPath ::: " + propertiesService.getString("uploadPath"));
 
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
@@ -150,7 +153,7 @@ public class EgovSampleController {
 
 		sampleService.insertSample(sampleVO);
 		
-		if(sampleVO.getFile1()!=null) {
+		if(!FileUtil.isMultipartFileNull(sampleVO.getFile1())) {
 			System.out.println("sampleVO.getFile1() ::: "+sampleVO.getFile1());
 			System.out.println("sampleVO.getFile1().getOriginalFilename() ::: "+sampleVO.getFile1().getOriginalFilename());
 		}
@@ -159,12 +162,14 @@ public class EgovSampleController {
 			MultipartFile[] files = sampleVO.getFiles();
 			int i=0;
 			for (MultipartFile mfile : files) {
-				System.out.println("files("+i+") ::: "+mfile);
-				System.out.println("files("+i+") ::: "+mfile.getOriginalFilename());
+				if(!FileUtil.isMultipartFileNull(mfile)) {
+					System.out.println("files("+i+") ::: "+mfile);
+					System.out.println("files("+i+") ::: "+mfile.getOriginalFilename());
+				}
 				i++;
 			}
 		}
-
+		
 		status.setComplete();
 		return "forward:/egovSampleList.do";
 	}

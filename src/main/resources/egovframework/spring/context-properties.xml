@@ -7,8 +7,9 @@
 	        <map>
 	        	<entry key="pageUnit" value="10"/>
 	        	<entry key="pageSize" value="10"/>
+	        	<entry key="uploadPath" value="${upload.path}"/>
 	        </map>
 		</property>
 	</bean>
 	
-</beans>	
+</beans>
