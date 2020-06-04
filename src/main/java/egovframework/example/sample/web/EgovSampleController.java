@@ -152,11 +152,14 @@ public class EgovSampleController {
 		}
 
 		sampleService.insertSample(sampleVO);
-		
+
 		if(!FileUtil.isMultipartFileNull(sampleVO.getFile1())) {
 			System.out.println("sampleVO.getFile1() ::: "+sampleVO.getFile1());
 			System.out.println("sampleVO.getFile1().getOriginalFilename() ::: "+sampleVO.getFile1().getOriginalFilename());
 		}
+
+		FileUtil.FileSaveInfo saveInfo = FileUtil.saveMultipartFile(propertiesService, sampleVO.getFile1(), "sample", "");
+		LOGGER.debug("saveInfo ::: "+saveInfo);
 		
 		if(sampleVO.getFiles()!=null) {
 			MultipartFile[] files = sampleVO.getFiles();

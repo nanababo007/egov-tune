@@ -134,7 +134,7 @@ public class FileUtil {
 		
 		if(StringUtil.isNotEmpty(path)) {
 			File folder = new File(path);
-			if(!folder.exists() && folder.isDirectory()) {
+			if(!folder.exists() ) {
 				folder.mkdirs();
 			}
 		}
