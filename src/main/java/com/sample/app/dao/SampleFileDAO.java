@@ -29,7 +29,7 @@ public class SampleFileDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	private String namespace = "com.sample.app.api.mapper.SampleFileMapper.";
+	private String namespace = "com.sample.app.mapper.SampleFileMapper.";
 	
 	/**
 	 * 글을 등록한다.

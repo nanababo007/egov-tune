@@ -95,7 +95,7 @@
 	</select>
 	
 	<sql id="selectSampleFileListCondition">
-			<if test="sampleId != null and !sampleId.equals('')">
+			<if test='sampleId != null and !sampleId.equals("")'>
 				AND SAMPLE_ID = #{sampleId}
 			</if>
 			<if test="searchKeyword != null and searchKeyword != ''">

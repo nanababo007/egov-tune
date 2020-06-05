@@ -42,7 +42,7 @@ public class SampleFileApiController {
 		
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		searchVO.setPageSize(propertiesService.getInt("pageSize"));
-		
+
 		/** pageing setting */
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
@@ -59,7 +59,7 @@ public class SampleFileApiController {
 		int totCnt = sampleFileService.selectSampleFileListTotCnt(searchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		data.put("paginationInfo", paginationInfo);
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(data);
 	}
 

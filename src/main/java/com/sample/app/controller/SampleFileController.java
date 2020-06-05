@@ -49,8 +49,6 @@ public class SampleFileController {
 	
 	@RequestMapping(value = "/list.do")
 	public String selectSampleFileList(@ModelAttribute("searchVO") SampleFileVO searchVO, ModelMap model) throws Exception {
-		try {
-			
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
 		searchVO.setPageSize(propertiesService.getInt("pageSize"));
 		
@@ -70,10 +68,7 @@ public class SampleFileController {
 		int totCnt = sampleFileService.selectSampleFileListTotCnt(searchVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+
 		return "sample/file/list";
 	}
 	
