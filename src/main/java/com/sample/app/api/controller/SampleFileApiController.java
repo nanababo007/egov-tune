@@ -37,7 +37,7 @@ public class SampleFileApiController {
 	protected EgovPropertyService propertiesService;
 	
 	@GetMapping("/list.do")
-	public ResponseEntity<Map<String,Object>> selectSampleList(@ModelAttribute("searchVO") SampleFileVO searchVO) throws Exception {
+	public ResponseEntity<Map<String,Object>> selectSampleFileList(@ModelAttribute("searchVO") SampleFileVO searchVO) throws Exception {
 		Map<String,Object> data = new HashMap<String,Object>();
 		
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -64,7 +64,7 @@ public class SampleFileApiController {
 	}
 
 	@GetMapping("/view.do")
-	public ResponseEntity<Map<String,Object>> selectSample(SampleFileVO sampleFileVO, @ModelAttribute("searchVO") SampleFileVO searchVO) throws Exception {
+	public ResponseEntity<Map<String,Object>> selectSampleFile(SampleFileVO sampleFileVO, @ModelAttribute("searchVO") SampleFileVO searchVO) throws Exception {
 		Map<String,Object> data = new HashMap<String,Object>();
 		data.put("sampleFileVO", sampleFileService.selectSampleFile(sampleFileVO));
 		return ResponseEntity.status(HttpStatus.OK).body(data);
